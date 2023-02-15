@@ -1,10 +1,8 @@
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Homework1 {
-    /**
-     * @param args
-     */
+
     public static void main(String[] args) {
         menu();
     }
@@ -18,19 +16,31 @@ public class Homework1 {
 
             switch (task) {
                 case 1:
+                    System.out.println("\nЗадание № 1:\n");
                     System.out.printf("Введите число n: ");
                     int n = iSc.nextInt();
                     task1(n);
                     break;
                 case 2:
+                    System.out.println("\nЗадание № 2:\n");
                     task2();
                     break;
+                case 3:
+                    System.out.println("\nЗадание № 3:\n");
+                    System.out.printf("Введите первое число: ");
+                    Double num1 = iSc.nextDouble();
+                    System.out.printf("Введите арифметический знак: ");
+                    String operand = iSc.next();
+                    System.out.printf("Введите второе число: ");
+                    Double num2 = iSc.nextDouble();
+                    task3(num1, operand, num2);
+                    break;
                 default:
-                    System.out.printf("Некорректный ввод");
+                    System.out.println("Некорректный ввод");
                     break;
             }
         } catch (Exception e) {
-            System.out.printf("Некорректный ввод");
+            System.out.println("Некорректный ввод");
         } finally {
             iSc.close();
         }
@@ -42,7 +52,6 @@ public class Homework1 {
      * n! (произведение чисел от 1 до n)
      ************************************************************/
     public static void task1(int n) {
-        System.out.println("\nЗадание № 1:\n");
         if (n == 0) {
             System.out.printf("%d-е треугольное число -> %d \n", n, 0);
             System.out.printf("Факториал числа %d -> %d", n, 1);
@@ -55,10 +64,6 @@ public class Homework1 {
     }
 
     // Нахождение n-го треугольного числа при помощи цикла:
-    /**
-     * @param num
-     * @return
-     */
     public static int triangularNumber(int num) {
         int sum = 0;
         for (int i = 0; i <= num; i++) {
@@ -79,8 +84,7 @@ public class Homework1 {
      * Вывести все простые числа от 1 до 1000
      ************************************************************/
     public static void task2() {
-        System.out.println("\nЗадание № 2:\n");
-        int[] array = new int[0];
+        ArrayList<Integer> array = new ArrayList<Integer>();
         int max = 1000;
         for (int i = 2; i <= max; i++) {
             boolean isPrimeNumber = true;
@@ -92,18 +96,48 @@ public class Homework1 {
                 }
             }
             if (isPrimeNumber) {
-                array = addElement(array.length, array, i);
+                array.add(i);
             }
         }
-        System.out.println(Arrays.toString(array));
+        System.out.printf("Простые числа от 1 до %d:\n%s", max, array.toString());
     }
 
-    // Метод добавления элемента в конец массива:
-    public static int[] addElement(int n, int arr[], int x) {
-        int newArr[] = new int[n + 1];
-        for (int i = 0; i < n; i++)
-            newArr[i] = arr[i];
-        newArr[n] = x;
-        return newArr;
+    /**********************************************************
+     * Задание № 3:
+     * Реализовать простой калькулятор
+     ************************************************************/
+    public static void task3(Double a, String oper, Double b) {
+        switch (oper) {
+            case "+":
+                System.out.printf("Сумма %.1f и %.1f -> %.1f \n", a, b, sum(a, b));
+                break;
+            case "-":
+                System.out.printf("Разность %.1f и %.1f -> %.1f \n", a, b, deduction(a, b));
+                break;
+            case "*":
+                System.out.printf("Произведение %.1f и %.1f -> %.1f \n", a, b, multiplication(a, b));
+                break;
+            case "/":
+                System.out.printf("%.1f разделить на %.1f -> %.1f \n", a, b, division(a, b));
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static Double sum(Double a, Double b) {
+        return a + b;
+    }
+
+    public static Double deduction(Double a, Double b) {
+        return a - b;
+    }
+
+    public static Double multiplication(Double a, Double b) {
+        return a * b;
+    }
+
+    public static Double division(Double a, Double b) {
+        return a / b;
     }
 }
